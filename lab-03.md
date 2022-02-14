@@ -1,7 +1,7 @@
 Lab 03 - Nobel laureates
 ================
-Insert your name here
-Insert date here
+marq Schieber
+2/14
 
 ### Load packages and data
 
