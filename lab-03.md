@@ -1,6 +1,6 @@
 Lab 03 - Nobel laureates
 ================
-marq Schieber
+Marq Schieber
 2/14
 
 ### Load packages and data

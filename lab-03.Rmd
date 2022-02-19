@@ -1,6 +1,6 @@
 ---
 title: "Lab 03 - Nobel laureates"
-author: "marq Schieber"
+author: "Marq Schieber"
 date: "2/14"
 output: github_document
 ---
