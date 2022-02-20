@@ -31,41 +31,49 @@ There are 935 observations and 26 variables. Each row represents one observation
 
 There are some observations in this dataset that we will exclude from our analysis to match the Buzzfeed results.
 
-
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
-
 ### Exercise 2
 
+```{r filter and new data set}
+new_nobel <- nobel %>%
+filter(country!='NA',
+       gender!='org',
+       is.na(died_date))
+```
+
+WHoops called the new data frame new_nobel.
+
+### Exercise 3
 ```{r}
-filter(nobel,country=TRUE)
+new_nobel <- new_nobel %>%
+  mutate(
+    country_us = if_else(country == "USA", "USA", "Other")
+  )
 ```
 
 
-Create a new data frame called nobel_living that filters for:
+```{r}
+nobel_living_science <- new_nobel %>%
+  filter(category %in% c("Physics", "Medicine", "Chemistry", "Economics"))
+```
 
-1. laureates for whom country is available
-2. laureates who are people as opposed to organizations (organizations are denoted with "org" as their gender)
-3. laureates who are still alive (their died_date is NA)
-
-Confirm that once you have filtered for these characteristics you are left with a data frame with 228 observations, once again using inline code.
-
-
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
-
-### Exercise 3
-
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
 
 ### Exercise 4
+
+Create a faceted bar plot visualizing the relationship between the category of prize and whether the laureate was in the US when they won the nobel prize. Interpret your visualization, and say a few words about whether the Buzzfeed headline is supported by the data.
+
+Your visualization should be faceted by category.
+For each facet you should have two bars, one for winners in the US and one for Other.
+Flip the coordinates so the bars are horizontal, not vertical.
+
+```{r}
+ggplot(data = nobel_living_science, aes(y = country_us)) +
+  geom_bar() +
+  facet_wrap(~ category)
+```
+
+Maybe I'm misunderstanding, but I don't see how this visualization relates to the buzzfeed article. This graph shows US winners vs. outside foreign winners. The buzzfeed article was focused on solely US winners, albeit those who were born in the US and those who immigrated here. 
+
+With that said, this article shows that a significant amount of intellectual talent can be found outside of the United States. This adds support to the article's assertion that the US has much to gain (above what it's already gained) from importing researchers.
 
 ...
 
