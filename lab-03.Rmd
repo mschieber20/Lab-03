@@ -59,12 +59,6 @@ nobel_living_science <- new_nobel %>%
 
 ### Exercise 4
 
-Create a faceted bar plot visualizing the relationship between the category of prize and whether the laureate was in the US when they won the nobel prize. Interpret your visualization, and say a few words about whether the Buzzfeed headline is supported by the data.
-
-Your visualization should be faceted by category.
-For each facet you should have two bars, one for winners in the US and one for Other.
-Flip the coordinates so the bars are horizontal, not vertical.
-
 ```{r}
 ggplot(data = nobel_living_science, aes(y = country_us)) +
   geom_bar() +
@@ -79,8 +73,45 @@ With that said, this article shows that a significant amount of intellectual tal
 
 ### Exercise 5
 
+```{r new variable}
+nobel_living_science <- nobel_living_science %>%
+  mutate(
+    born_country_us = if_else(born_country == "USA", "USA", "Other")
+  )
+
+nrow(filter(nobel_living_science, born_country_us == 'USA'))
+```
+
+105 winners born in the US.
+
+```{r new bar chart}
+ggplot(data = nobel_living_science, aes(y = country_us, fill = born_country_us)) +
+  geom_bar() +
+  facet_wrap(~ category)
+```
+
+The visualization shows that a large proportion of US nobel laureates were born outside the United States. This suggests that immigration is an important part of past US laureates and undoubtedbly future laureates.
+
+
 ...
 
 ### Exercise 6
+
+Germany and the UK are tied for most common.
+
+```{r}
+filtered_nobel <- nobel_living_science %>%
+filter(born_country_us=='Other',
+       country_us=='USA')
+
+
+arrange(count(filtered_nobel, born_country),desc(n))
+
+
+
+
+
+```
+
 
 ...

@@ -65,15 +65,6 @@ nobel_living_science <- new_nobel %>%
 
 ### Exercise 4
 
-Create a faceted bar plot visualizing the relationship between the
-category of prize and whether the laureate was in the US when they won
-the nobel prize. Interpret your visualization, and say a few words about
-whether the Buzzfeed headline is supported by the data.
-
-Your visualization should be faceted by category. For each facet you
-should have two bars, one for winners in the US and one for Other. Flip
-the coordinates so the bars are horizontal, not vertical.
-
 ``` r
 ggplot(data = nobel_living_science, aes(y = country_us)) +
   geom_bar() +
@@ -96,8 +87,60 @@ what it’s already gained) from importing researchers.
 
 ### Exercise 5
 
+``` r
+nobel_living_science <- nobel_living_science %>%
+  mutate(
+    born_country_us = if_else(born_country == "USA", "USA", "Other")
+  )
+
+nrow(filter(nobel_living_science, born_country_us == 'USA'))
+```
+
+    ## [1] 105
+
+105 winners born in the US.
+
+``` r
+ggplot(data = nobel_living_science, aes(y = country_us, fill = born_country_us)) +
+  geom_bar() +
+  facet_wrap(~ category)
+```
+
+![](lab-03_files/figure-gfm/new%20bar%20chart-1.png)<!-- -->
+
+The visualization shows that a large proportion of US nobel laureates
+were born outside the United States. This suggests that immigration is
+an important part of past US laureates and undoubtedbly future
+laureates.
+
 …
 
 ### Exercise 6
+
+Germany and the UK are tied for most common.
+
+``` r
+filtered_nobel <- nobel_living_science %>%
+filter(born_country_us=='Other',
+       country_us=='USA')
+
+
+arrange(count(filtered_nobel, born_country),desc(n))
+```
+
+    ## # A tibble: 21 × 2
+    ##    born_country       n
+    ##    <chr>          <int>
+    ##  1 Germany            7
+    ##  2 United Kingdom     7
+    ##  3 China              5
+    ##  4 Canada             4
+    ##  5 Japan              3
+    ##  6 Australia          2
+    ##  7 Israel             2
+    ##  8 Norway             2
+    ##  9 Austria            1
+    ## 10 Finland            1
+    ## # … with 11 more rows
 
 …
