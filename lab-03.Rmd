@@ -19,11 +19,17 @@ nobel <- read_csv("data/nobel.csv")
 
 ### Exercise 1
 
-How many observations and how many variables are in the dataset? Use inline code to answer this question. What does each row represent?
+
+```{r number of rows and collumns code}
+count(nobel)
+
+ncol(nobel)
+```
+
+
+There are 935 observations and 26 variables. Each row represents one observation.
 
 There are some observations in this dataset that we will exclude from our analysis to match the Buzzfeed results.
-
-
 
 
 Remove this text, and add your answer for Exercise 1 here.
@@ -32,6 +38,20 @@ Don't forget to label your code chunk.
 Do not use spaces in code chunk labels.
 
 ### Exercise 2
+
+```{r}
+filter(nobel,country=TRUE)
+```
+
+
+Create a new data frame called nobel_living that filters for:
+
+1. laureates for whom country is available
+2. laureates who are people as opposed to organizations (organizations are denoted with "org" as their gender)
+3. laureates who are still alive (their died_date is NA)
+
+Confirm that once you have filtered for these characteristics you are left with a data frame with 228 observations, once again using inline code.
+
 
 Remove this text, and add your answer for Exercise 1 here.
 Add code chunks as needed.
